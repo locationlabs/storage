@@ -38,16 +38,16 @@ Construct a storage client using your credentials:
    layer = client.Layer('oauth_token',
                         'oauth_token_secret')
 
-   client = client.Client('https://storage.location-labs.com/api/v1/content',
-                          developer,
-                          layer)
+   cli = client.Client('https://storage.location-labs.com/api/v1/content',
+                       developer,
+                       layer)
 
 3. Use the client to create, query, or modify content:
 
 For example:
 
    circle = client.Circle(-122.290082,37.84166,5000)
-   client.query(circle)
+   print "\n".join(map(str,cli.search(circle)))
 
 
 ## Documentation
