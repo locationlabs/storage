@@ -13,7 +13,7 @@ tagged content.
 
 ## Installation
 
-easy install ...
+easy_install locationlabs-storage
 
 
 ## Getting Started
