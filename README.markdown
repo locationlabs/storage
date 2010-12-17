@@ -23,8 +23,8 @@ easy_install locationlabs-storage
     Spatial storage uses [OAuth][3] credentials to authorize API usage. Developers
     need credentials for themselves and each storage layer. Request access [here][4].
 
-    [3]: http://oauth.net
-    [4]: http://storage.location-labs.com/support
+[3]: http://oauth.net
+[4]: http://storage.location-labs.com/support
 
 2.  Initialize a client.
 
