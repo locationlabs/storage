@@ -39,7 +39,7 @@ easy_install locationlabs-storage
                              'oauth_token_secret')
 
         cli = client.Client('https://storage.location-labs.com/api/v1/content',
-	                    developer,
+                            developer,
                             layer)
 
 1.  Use the client to create, query, or modify content:
