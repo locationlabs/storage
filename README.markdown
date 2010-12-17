@@ -13,7 +13,7 @@ tagged content.
 
 ## Installation
 
-easy_install locationlabs-storage
+python ./setup.py install
 
 
 ## Getting Started
