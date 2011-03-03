@@ -4,8 +4,8 @@
 
 Python client library for interacting with [Location Labs][1] [spatial storage][2].
 
-[1]: http://location-labs.com
-[2]: http://storage.location-labs.com
+[1]: http://locationlabs.com
+[2]: http://storage.locationlabs.com
 
 Spatial storage is a RESTful service for storing and querying spatially
 tagged content.
@@ -24,7 +24,7 @@ python ./setup.py install
     need credentials for themselves and each storage layer. Request access [here][4].
 
 [3]: http://oauth.net
-[4]: http://storage.location-labs.com/support
+[4]: http://storage.locationlabs.com/support
 
 2.  Initialize a client.
 
@@ -38,7 +38,7 @@ python ./setup.py install
         layer = client.Layer('oauth_token',
                              'oauth_token_secret')
 
-        cli = client.Client('https://storage.location-labs.com/api/v1/content',
+        cli = client.Client('https://storage.locationlabs.com/api/v1/content',
                             developer,
                             layer)
 
@@ -54,7 +54,7 @@ python ./setup.py install
 
 More information about the spatial storage service and API are hosted [here][5].
 
-[5]: http://storage.location-labs.com/docs
+[5]: http://storage.locationlabs.com/docs
 
 ## License
 
