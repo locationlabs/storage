@@ -110,7 +110,7 @@ class Client:
         else:
             return httplib.HTTPConnection(parsed_url.netloc)
 
-    def _make_request(self,http_url,http_method,body=None,parameters=None):
+    def _make_request(self,http_url,http_method,http_headers=None,body=None,parameters=None):
         '''Issue an API request'''
 
         # prepare an OAuth signature
@@ -127,10 +127,14 @@ class Client:
         # open an HTTP connection
         connection = self._make_http_connection(http_url)
 
+        headers = oauth_request.to_header()
+ 	if http_headers:
+            headers.update(http_headers)
+
         # issue request, passing OAuth signature as Authorization header
         connection.request(http_method,
                            http_url,
-                           headers=oauth_request.to_header(),
+                           headers=headers,
                            body=body)
 
         # read response
@@ -143,17 +147,25 @@ class Client:
     def create(self,content):
         '''Create new content, either one at a time or in a batch.'''
         http_url = self.url
+        http_headers={
+            "Accept":"application/json", 
+            "Content-Type":"application/json"
+            }
+
         if hasattr(content, '__iter__'):
             body = json.dumps(content,cls=ObjectEncoder)
         else:
             body = json.dumps([content],cls=ObjectEncoder)
-        self._make_request(http_url,'POST',body=body)
+        self._make_request(http_url,'POST', http_headers=http_headers, body=content)
 
     def search(self,circle):
         '''Search for content within a bounding circle.'''
         parameters = circle.__dict__
         http_url = self.url + "?" + circle.to_query_string()
-        body = self._make_request(http_url,'GET',parameters=parameters)
+	http_headers={
+            "Content-Type":"application/json"
+            }
+        body = self._make_request(http_url,'GET',http_headers=http_headers,parameters=parameters)
         return [Content(**dct) for dct in json.loads(body)]
 
     def delete(self,id):
@@ -164,12 +176,19 @@ class Client:
     def get(self,id):
         '''Get content by id.'''
         http_url = "/".join([self.url,urllib.quote(id)])
-        body = self._make_request(http_url,'GET')
+        http_headers={
+            "Content-Type":"application/json"
+            }
+	body = self._make_request(http_url,'GET',http_headers=http_headers)
         return Content(**json.loads(body))
     
     def update(self,id,properties):
         '''Get content by id.'''
         http_url = "/".join([self.url,urllib.quote(id)])
-        body = json.dumps(properties,cls=ObjectEncoder)
-        self._make_request(http_url,'PUT',body=body)
+        http_headers={
+            "Accept":"application/json", 
+            "Content-Type":"application/json"
+            }
+	body = json.dumps(properties,cls=ObjectEncoder)
+        self._make_request(http_url,'PUT',http_headers=http_headers,body=body)
 
